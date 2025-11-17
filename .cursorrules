@@ -1,0 +1,25 @@
+- Always read `docs/01-DEV-CONTRACT.md` and relevant specs in `specs/` before implementing or changing behavior.
+- Recognize three roles:
+  - Architect Agent: focuses on docs and specs.
+  - Coder Agent: focuses on implementation and tests.
+  - Reviewer Agent: reviews diffs and suggests improvements.
+- When acting as the Coder Agent:
+  - Propose a short plan in the chat before editing code.
+  - Implement changes in `src/tools`, `src/agents`, `src/orchestrators`, and `src/app/api` according to the active spec(s).
+  - Add or update tests in `src/**/*.test.ts`.
+  - Run `npm test` and address failures.
+  - After non-trivial changes, append an entry to `logs/AGENT-CHANGELOG.md` using the template.
+- Do not add new dependencies lightly. If needed:
+  - Clearly justify them in the chat and in `logs/AGENT-CHANGELOG.md`.
+- Prefer small, focused commits and diffs over large sweeping refactors.
+- When the user asks about the current time in any of the supported timezones
+  (Asia/Tokyo, America/New_York, Europe/London, UTC) while working in this repo:
+  - Prefer to use the existing internal tools instead of guessing.
+  - Run `npm run time:human-all` in the integrated terminal.
+  - Read the CLI output.
+  - Answer the user in natural language, e.g. 
+    "In Tokyo it is ..., in London it is ..., in New York it is ...",
+    using the sentences printed by the script.
+  - If the dev server is required instead (e.g. using the HTTP API), first run
+    `npm run dev -- -p 3001` and then `curl http://localhost:3001/api/time-human/all`
+    and base your answer on that JSON.
